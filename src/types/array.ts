@@ -1,4 +1,3 @@
-import {Encoder, SerializableValue} from '../index';
 import {concat} from '../utils/concat';
 import {pack} from '../utils/pack';
 import {unpack} from '../utils/unpack';
@@ -7,7 +6,7 @@ import integer from './integer';
 export default {
     test: Array.isArray,
 
-    encode(a: Array<SerializableValue>, encode): Uint8Array {
+    encode(a: ReadonlyArray<any>, encode: (value: unknown) => Uint8Array): Uint8Array {
         let data = pack(integer.encode(a.length));
 
         for (const val of a) {
@@ -20,7 +19,7 @@ export default {
         return data;
     },
 
-    decode(a: Uint8Array, decode): Array<SerializableValue> {
+    decode(a: Uint8Array, decode: (value: Uint8Array) => unknown): Array<unknown> {
         const [array, newOffset] = unpack(a);
         const size = integer.decode(array);
         const res = [];
@@ -34,4 +33,4 @@ export default {
 
         return res;
     }
-} as Encoder<Array<SerializableValue>>;
+} ;
