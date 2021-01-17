@@ -1,7 +1,5 @@
-import {Encoder} from '../index';
-
 export default {
-    test(v) {
+    test(v: unknown): boolean {
         return typeof v === 'number' && v % 1 === 0;
     },
 
@@ -56,4 +54,4 @@ export default {
 
         return val;
     }
-} as Encoder<number>;
+};

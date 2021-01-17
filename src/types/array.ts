@@ -8,7 +8,7 @@ export default {
     test: Array.isArray,
 
     encode(a: Array<SerializableValue>, encode): Uint8Array {
-        let data = pack(integer.encode(a.length, encode));
+        let data = pack(integer.encode(a.length));
 
         for (const val of a) {
             data = concat(
@@ -22,7 +22,7 @@ export default {
 
     decode(a: Uint8Array, decode): Array<SerializableValue> {
         const [array, newOffset] = unpack(a);
-        const size = integer.decode(array, decode);
+        const size = integer.decode(array);
         const res = [];
 
         let data: Uint8Array;
