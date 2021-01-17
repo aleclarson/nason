@@ -98,5 +98,3 @@ export const utils = {
     concat
 };
 
-// Current version
-export const version = VERSION;
