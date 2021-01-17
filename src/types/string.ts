@@ -1,7 +1,5 @@
-import {Encoder} from '../index';
-
 export default {
-    test(v) {
+    test(v: unknown): boolean {
         return typeof v === 'string';
     },
 
@@ -12,4 +10,4 @@ export default {
     decode(s: Uint8Array): string {
         return new TextDecoder().decode(s);
     }
-} as Encoder<string>;
+};
