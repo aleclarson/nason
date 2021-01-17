@@ -1,14 +1,14 @@
-import {Encoder, SerializableObject, SerializableValue} from '../index';
+import {Encoder} from '../index';
 import {concat} from '../utils/concat';
 import {pack} from '../utils/pack';
 import {unpack} from '../utils/unpack';
 
-export default {
+export default <Encoder<Record<string, unknown>>>{
     test(v) {
         return typeof v === 'object';
     },
 
-    encode(o: SerializableObject, encode): Uint8Array {
+    encode(o, encode) {
         let data = new Uint8Array(0);
 
         for (const [key, value] of Object.entries(o)) {
@@ -22,8 +22,8 @@ export default {
         return data;
     },
 
-    decode(source: Uint8Array, decode): SerializableObject {
-        const entries: Array<[keyof SerializableObject, SerializableValue]> = [];
+    decode(source, decode) {
+        const entries: Array<[string, unknown]> = [];
         let data: Uint8Array;
         let offset = 0;
 
@@ -39,5 +39,5 @@ export default {
 
         return Object.fromEntries(entries);
     }
-} as Encoder<SerializableObject>;
+};
 

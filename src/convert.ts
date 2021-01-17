@@ -1,4 +1,4 @@
-import {EncoderList, SerializableValue} from './index';
+import {EncoderList} from './index';
 
 const prependNumber = (type: number, val: Uint8Array): Uint8Array => {
     const newBuffer = new Uint8Array((val as Uint8Array).length + 1);
@@ -8,7 +8,7 @@ const prependNumber = (type: number, val: Uint8Array): Uint8Array => {
 };
 
 export const createEncoder = (encoders: EncoderList) => function encode(
-    val: SerializableValue
+    val: unknown
 ): Uint8Array {
     for (const [id, encoder] of encoders) {
         if (encoder.test(val)) {
@@ -21,7 +21,7 @@ export const createEncoder = (encoders: EncoderList) => function encode(
 
 export const createDecoder = (encoders: EncoderList) => function decode(
     val: Uint8Array
-): SerializableValue {
+): unknown {
     if (!val.length) {
         throw new Error('Input cannot be empty.');
     }
@@ -31,7 +31,7 @@ export const createDecoder = (encoders: EncoderList) => function decode(
 
     for (const [id, encoder] of encoders) {
         if (id === entryId) {
-            return encoder.decode(data, decode) as SerializableValue;
+            return encoder.decode(data, decode);
         }
     }
 

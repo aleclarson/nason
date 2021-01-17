@@ -11,21 +11,14 @@ import {concat} from './utils/concat';
 import {pack} from './utils/pack';
 import {unpack} from './utils/unpack';
 
-export type SerializableValue = Record<string, unknown> | string | number | boolean | null |
-    SerializableObject | Array<SerializableValue>;
-
-export type SerializableObject = {
-    [key: string]: SerializableValue;
-};
-
 export type EncoderFunction<Source> = (
     value: Source,
-    encoder: (value: SerializableValue) => Uint8Array
+    encoder: (value: unknown) => Uint8Array
 ) => Uint8Array;
 
 export type DecoderFunction<Result> = (
     source: Uint8Array,
-    decoder: (value: Uint8Array) => SerializableValue
+    decoder: (value: Uint8Array) => unknown
 ) => Result;
 
 export interface Encoder<T> {
