@@ -31,11 +31,14 @@ export default <Encoder<Record<string, unknown>>>{
 
         while (offset < source.length) {
             [data, offset] = unpack(source, offset);
-            const str = decode(data) as string;
+            const key = decode(data) as string;
+            if (key === '__proto__') {
+                throw Error(`Forbidden object key: ${key}`);
+            }
 
             [data, offset] = unpack(source, offset);
             entries.push(
-                [str, decode(data)]
+                [key, decode(data)]
             );
         }
 
