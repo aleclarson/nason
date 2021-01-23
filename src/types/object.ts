@@ -12,11 +12,13 @@ export default <Encoder<Record<string, unknown>>>{
         let data = new Uint8Array(0);
 
         for (const [key, value] of Object.entries(o)) {
-            data = concat(
-                data,
-                pack(encode(key)),
-                pack(encode(value))
-            );
+            if (value !== undefined) {
+                data = concat(
+                    data,
+                    pack(encode(key)),
+                    pack(encode(value))
+                );
+            }
         }
 
         return data;
