@@ -2,6 +2,10 @@ import {testBidirectional} from './utils';
 
 describe('Arrays serialization', () => {
 
+    it('Should serialize an empty array', () => {
+        testBidirectional([]);
+    });
+
     it('Should serialize just an array', () => {
         testBidirectional([
             123,
