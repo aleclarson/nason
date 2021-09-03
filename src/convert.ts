@@ -26,7 +26,7 @@ export const createDecoder = (encoders: EncoderList) => function decode(
         throw new Error('Input cannot be empty.');
     }
 
-    const data = new Uint8Array(val.buffer, 1);
+    const data = val.slice(1);
     const entryId = val[0];
 
     for (const [id, encoder] of encoders) {
