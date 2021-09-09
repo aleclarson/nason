@@ -12,7 +12,7 @@ export default {
         for (const val of a) {
             data = concat(
                 data,
-                pack(encode(val))
+                pack(encode(val !== undefined ? val : null))
             );
         }
 
